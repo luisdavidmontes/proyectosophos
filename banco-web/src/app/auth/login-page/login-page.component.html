@@ -1,0 +1,24 @@
+<form class="w-50 p-3 class login" [formGroup]="form" (ngSubmit)="send()">
+  <h1 class="f-1 text-center">Login</h1>
+  <div class="mb-3">
+    <label class="form-label">Username</label>
+    <input
+      formControlName="username"
+      type="text"
+      class="form-control"
+      placeholder="username"
+    />
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Password</label>
+    <input
+      formControlName="password"
+      type="password"
+      class="form-control"
+      placeholder="Password"
+    />
+  </div>
+  <div class="d-grid gap-2">
+    <button type="submit" class="btn btn-primary block">Primary</button>
+  </div>
+</form>
