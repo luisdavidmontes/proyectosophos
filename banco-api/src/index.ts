@@ -1,16 +1,12 @@
-import express from "express";
+import { app, PORT } from "./config/app";
+import { connection } from "./database";
 import { registerRoutes } from "./routes";
-import { database } from "./database";
 
-const PORT = 3000;
-const app = express();
+async function main() {
+  await connection;
+  await registerRoutes();
+  await app.listen(PORT);
+  console.log(`Listen on port ${PORT}`);
+}
 
-// Rutas
-registerRoutes(app);
-
-// Database Connection
-database.then((connection) => {
-  app.listen(PORT, () => {
-    console.log(`Listen on port ${PORT}`);
-  });
-});
+main();

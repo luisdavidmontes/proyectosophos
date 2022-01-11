@@ -1,14 +1,22 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Account } from "./account";
 
 @Entity()
-export class Client {
+export class Client extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id!: string;
+  id!: number;
 
   @Column("text")
   identicationType!: "passport" | "document";
 
-  @Column("number")
+  @Column("numeric")
   identificationNumber!: number;
 
   @Column("text")
@@ -25,4 +33,7 @@ export class Client {
 
   @Column("timestamp")
   date!: Date;
+
+  @OneToMany(() => Account, (account) => account.client)
+  accounts!: Account[];
 }

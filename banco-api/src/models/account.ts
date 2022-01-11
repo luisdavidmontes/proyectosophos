@@ -1,14 +1,23 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  BaseEntity,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Client } from "./client";
 
 @Entity()
-export class Account {
+export class Account extends BaseEntity {
   @PrimaryGeneratedColumn()
-  id!: string;
+  id!: number;
 
   @Column("text")
-  type!: string;
+  type!: "current" | "savings";
 
-  @Column("number")
+  @Column("numeric")
   number!: number;
 
   @Column("timestamp")
@@ -17,6 +26,10 @@ export class Account {
   @Column("bool")
   active!: boolean;
 
-  @Column("number")
+  @Column("numeric")
   balance!: number;
+
+  @ManyToOne(() => Client, (client) => client.id)
+  @JoinColumn()
+  client!: Client;
 }

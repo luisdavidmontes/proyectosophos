@@ -1,6 +1,8 @@
-import { IRoute } from "express";
-import { AuthController } from "../controllers/auth";
+import { Router } from "express";
+import * as controller from "../controllers/auth";
 
-export class AuthRoutes {
-  constructor(private router: IRoute, private controller: AuthController) {}
-}
+const router = Router();
+
+router.get("/login", controller.login);
+
+export default router;
