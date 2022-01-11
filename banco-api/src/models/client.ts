@@ -14,7 +14,7 @@ export class Client extends BaseEntity {
   id!: number;
 
   @Column("text")
-  identicationType!: "passport" | "document";
+  identificationType!: "passport" | "document";
 
   @Column("numeric")
   identificationNumber!: number;

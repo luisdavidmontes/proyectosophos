@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="card row m-3" style="width: 18rem" *ngFor="let client of clients">
+    <div class="card-body">
+      <h5 class="card-title">{{ client.name }}{{ client.lastName }}</h5>
+      <p class="card-text">{{ client.identificationNumber }}</p>
+    </div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item">{{ client.email }}</li>
+      <li class="list-group-item">{{ client.birthday | date }}</li>
+      <li class="list-group-item">{{ client.date | date }}</li>
+    </ul>
+    <div class="card-body d-grid gap-2 text-light">
+      <a class="btn btn-success" [routerLink]="['/dashboard/client', client.id]"
+        >Transaccionar</a
+      >
+    </div>
+  </div>
+</div>

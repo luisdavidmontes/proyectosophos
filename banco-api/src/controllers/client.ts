@@ -6,6 +6,12 @@ export async function getAll(req: Request, res: Response) {
   return res.status(200).send(users);
 }
 
+export async function getById(req: Request, res: Response) {
+  const id = req.params.id;
+  const user = await Client.findOne(id, { relations: ["accounts"] });
+  return res.status(200).send(user);
+}
+
 export async function create(req: Request, res: Response) {
   const client = req.body as Client;
   const clientDB = await Client.save(client);

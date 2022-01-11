@@ -1,0 +1,47 @@
+<section *ngIf="client">
+  <h1 class="fs-1">
+    {{ client.name }}
+    <a
+      [routerLink]="['/dashboard/create/account', client.id]"
+      class="mx-5 btn btn-outline-primary"
+    >
+      New account
+    </a>
+  </h1>
+
+  <div class="row">
+    <div
+      *ngFor="let account of client.accounts"
+      class="col card text-white m-3"
+      style="max-width: 18rem"
+      [ngClass]="{
+        'bg-primary': account.type === 'current',
+        'bg-success': account.type === 'savings'
+      }"
+    >
+      <div class="card-header">Account {{ account.type }}</div>
+      <div class="card-body">
+        <h5 class="card-title">{{ account.number }}</h5>
+        <h4 class="card-text text-dark" *ngIf="account.active">Active</h4>
+        <h4 class="card-text text-danger" *ngIf="!account.active">Inactive</h4>
+        <p class="card-text">Balance: {{ account.balance | currency }}</p>
+      </div>
+    </div>
+  </div>
+
+  <form class="w-50 mb-5">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Number account</label>
+      <input type="number" class="form-control" />
+    </div>
+    <div class="mb-3">
+      <label class="form-label">Type account</label>
+      <select class="form-select">
+        <option *ngFor="let account of client.accounts">
+          {{ account.type }} - {{ account.balance | currency }}
+        </option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Send Money</button>
+  </form>
+</section>
