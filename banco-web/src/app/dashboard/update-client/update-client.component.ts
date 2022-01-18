@@ -1,38 +1,47 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientService } from 'src/app/services/client.service';
 
 @Component({
-  selector: 'app-create-client',
-  templateUrl: './create-client.component.html',
-  styleUrls: ['./create-client.component.css'],
+  selector: 'app-update-client',
+  templateUrl: './update-client.component.html',
+  styleUrls: ['./update-client.component.css'],
 })
-export class CreateClientComponent implements OnInit {
+export class UpdateClientComponent implements OnInit {
   public form: FormGroup;
+
   constructor(
     private fb: FormBuilder,
     private clientSvc: ClientService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
+    const id = this.route.snapshot.paramMap.get('id') as string;
     this.form = this.fb.group({
+      id: [id],
       name: ['', Validators.required],
       identificationType: ['', Validators.required],
       identificationNumber: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       birthday: ['', Validators.required],
-      date: [new Date().toString()],
+    });
+    this.updateForm(id);
+  }
+
+  updateForm(id: string) {
+    this.clientSvc.getById(id).subscribe({
+      next: (client) => this.form.reset(client),
     });
   }
 
   ngOnInit(): void {}
 
-  send() {
-    console.log(this.form.value);
+  update() {
     if (this.form.invalid) return;
     this.clientSvc
-      .create(this.form.value)
-      .subscribe(() => this.router.navigate(['/dashboard']));
+      .update(this.form.value)
+      .subscribe({ next: () => this.router.navigate(['/dashboard']) });
   }
 }

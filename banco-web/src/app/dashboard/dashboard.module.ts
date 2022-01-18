@@ -7,6 +7,7 @@ import { ClientPageComponent } from './client-page/client-page.component';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { UpdateClientComponent } from './update-client/update-client.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     ClientPageComponent,
     CreateClientComponent,
     CreateAccountComponent,
+    UpdateClientComponent,
   ],
   imports: [CommonModule, DashboardRoutingModule, ReactiveFormsModule],
 })

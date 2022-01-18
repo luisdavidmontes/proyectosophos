@@ -3,6 +3,7 @@ import "reflect-metadata";
 import { User } from "../models/user";
 import { Client } from "../models/client";
 import { Account } from "../models/account";
+import { Registry } from "../models/registry";
 
 export const connection = (async () => {
   return await createConnection({
@@ -12,7 +13,7 @@ export const connection = (async () => {
     username: "root",
     password: "Salome29.",
     database: "banco",
-    entities: [User, Client, Account],
+    entities: [User, Client, Account, Registry],
     synchronize: true,
     logging: false,
   });

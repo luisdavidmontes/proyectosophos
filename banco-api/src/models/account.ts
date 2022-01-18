@@ -17,7 +17,7 @@ export class Account extends BaseEntity {
   @Column("text")
   type!: "current" | "savings";
 
-  @Column("numeric")
+  @Column("double")
   number!: number;
 
   @Column("timestamp")
@@ -26,7 +26,7 @@ export class Account extends BaseEntity {
   @Column("bool")
   active!: boolean;
 
-  @Column("numeric")
+  @Column("double")
   balance!: number;
 
   @ManyToOne(() => Client, (client) => client.id)

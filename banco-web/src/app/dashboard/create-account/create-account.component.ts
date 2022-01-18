@@ -23,7 +23,7 @@ export class CreateAccountComponent implements OnInit {
 
       number: [0, Validators.required],
 
-      createdAt: [new Date().toLocaleString()],
+      createdAt: [new Date().toString()],
 
       active: [true, Validators.required],
 

@@ -2,11 +2,11 @@ import {
   BaseEntity,
   Column,
   Entity,
-  JoinColumn,
   OneToMany,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Account } from "./account";
+import { Registry } from "./registry";
 
 @Entity()
 export class Client extends BaseEntity {
@@ -31,7 +31,10 @@ export class Client extends BaseEntity {
   @Column("timestamp")
   birthday!: Date;
 
-  @Column("timestamp")
+  @Column({
+    nullable: false,
+    type: "timestamp",
+  })
   date!: Date;
 
   @OneToMany(() => Account, (account) => account.client)

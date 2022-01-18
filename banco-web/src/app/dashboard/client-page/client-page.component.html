@@ -5,43 +5,94 @@
       [routerLink]="['/dashboard/create/account', client.id]"
       class="mx-5 btn btn-outline-primary"
     >
-      New account
+      Nueva cuenta
     </a>
+    <a
+      [routerLink]="['/dashboard/update/client', client.id]"
+      class="mx-5 btn btn-outline-primary"
+      >Editar</a
+    >
   </h1>
 
   <div class="row">
-    <div
-      *ngFor="let account of client.accounts"
-      class="col card text-white m-3"
-      style="max-width: 18rem"
-      [ngClass]="{
-        'bg-primary': account.type === 'current',
-        'bg-success': account.type === 'savings'
-      }"
-    >
-      <div class="card-header">Account {{ account.type }}</div>
-      <div class="card-body">
-        <h5 class="card-title">{{ account.number }}</h5>
-        <h4 class="card-text text-dark" *ngIf="account.active">Active</h4>
-        <h4 class="card-text text-danger" *ngIf="!account.active">Inactive</h4>
-        <p class="card-text">Balance: {{ account.balance | currency }}</p>
+    <div class="col-6">
+      <div class="row">
+        <div
+          *ngFor="let account of client.accounts"
+          class="col card text-white m-3"
+          style="max-width: 18rem"
+          [ngClass]="{
+            'bg-primary': account.type === 'current',
+            'bg-success': account.type === 'savings'
+          }"
+        >
+          <div class="card-header">
+            Cuenta {{ account.type === "current" ? "corriente" : "ahorros" }}
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">{{ account.number }}</h5>
+            <h4 class="card-text text-dark" *ngIf="account.active">Activa</h4>
+            <h4 class="card-text text-danger" *ngIf="!account.active">
+              Inactiva
+            </h4>
+            <p class="card-text">Saldo: {{ account.balance | currency }}</p>
+          </div>
+        </div>
       </div>
+      <form class="col-6 mb-5" [formGroup]="form" (ngSubmit)="sendMoney()">
+        <div class="mb-3">
+          <select formControlName="type">
+            <option value="between">Envio a terceros</option>
+            <option value="consign">Consignar</option>
+            <option value="withdraw">Retiro</option>
+          </select>
+        </div>
+        <div class="mb-3" *ngIf="type !== 'withdraw'">
+          <label class="form-label">Numero de cuenta a enviar</label>
+          <input formControlName="to" type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Saldo</label>
+          <input formControlName="balance" type="number" class="form-control" />
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Tipo de cuenta</label>
+          <select formControlName="from" class="form-select">
+            <option
+              *ngFor="let account of client.accounts"
+              [value]="account.id"
+            >
+              {{ account.type }} - {{ account.balance | currency }}
+            </option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Transaccion</button>
+      </form>
+    </div>
+    <div class="col-6">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Desde</th>
+            <th scope="col">Hacia</th>
+            <th scope="col">Saldo</th>
+            <th scope="col">Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let registry of registries">
+            <th scope="row">{{ registry.id }}</th>
+            <td>{{ registry.from.name }}</td>
+            <td>{{ registry.to.name }}</td>
+            <td>
+              {{ registry.balance | currency }} =>
+              {{ registry.result | currency }}
+            </td>
+            <td>{{ registry.date | date }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-
-  <form class="w-50 mb-5">
-    <div class="mb-3">
-      <label for="exampleInputEmail1" class="form-label">Number account</label>
-      <input type="number" class="form-control" />
-    </div>
-    <div class="mb-3">
-      <label class="form-label">Type account</label>
-      <select class="form-select">
-        <option *ngFor="let account of client.accounts">
-          {{ account.type }} - {{ account.balance | currency }}
-        </option>
-      </select>
-    </div>
-    <button type="submit" class="btn btn-primary">Send Money</button>
-  </form>
 </section>

@@ -5,6 +5,7 @@ import { ClientsViewComponent } from './clients-view/clients-view.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { CreateClientComponent } from './create-client/create-client.component';
 import { DashboardPageComponent } from './dashboard-page/dashboard-page.component';
+import { UpdateClientComponent } from './update-client/update-client.component';
 
 const Rutas: Routes = [
   {
@@ -22,6 +23,10 @@ const Rutas: Routes = [
       {
         path: 'create/client',
         component: CreateClientComponent,
+      },
+      {
+        path: 'update/client/:id',
+        component: UpdateClientComponent,
       },
       {
         path: '',

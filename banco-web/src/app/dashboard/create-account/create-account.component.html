@@ -1,22 +1,22 @@
 <form class="w-50 mb-5" [formGroup]="form" (ngSubmit)="send()">
   <div class="mb-3">
-    <label class="form-label">Number account</label>
+    <label class="form-label">Numero de cuenta *(Unico)</label>
     <input formControlName="number" type="number" class="form-control" />
   </div>
   <div class="mb-3">
-    <label class="form-label">Account type</label>
+    <label class="form-label">Tipo de cuenta</label>
     <select formControlName="type" class="form-select">
-      <option value="current">Current</option>
-      <option value="savings">Savings</option>
+      <option value="current">Corriente</option>
+      <option value="savings">Ahorros</option>
     </select>
   </div>
   <div class="mb-3">
-    <label class="form-label">Balance</label>
+    <label class="form-label">Saldo inicial</label>
     <input formControlName="balance" type="number" class="form-control" />
   </div>
   <div class="mb-3 form-check">
     <input type="checkbox" class="form-check-input" formControlName="active" />
-    <label class="form-check-label">Active</label>
+    <label class="form-check-label">Activa</label>
   </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" class="btn btn-primary">Crear</button>
 </form>
